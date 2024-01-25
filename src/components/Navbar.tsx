@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
@@ -50,22 +49,30 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <button
-          onClick={() =>
-            !session?.user ? signIn() : toast.error("Your are signed in")
-          }
-          className='bg-white w-16 h-[70px] rounded-md flex flex-col gap-1 text-[#33475b] justify-center items-center shadow-testShadow overflow-x-hidden group cursor-pointer'
-        >
-          Login
-        </button>
+        {!session?.user && (
+          <>
+            <button
+              onClick={() =>
+                !session?.user ? signIn() : toast.error("Your are signed in")
+              }
+              className='bg-white w-16 h-[70px] rounded-md flex flex-col gap-1 text-[#33475b] justify-center items-center shadow-testShadow overflow-x-hidden group cursor-pointer'
+            >
+              Login
+            </button>
+            <Link href='/register'>Register</Link>
+          </>
+        )}
 
         {session?.user && (
-          <button
-            onClick={() => signOut()}
-            className='flex hover:font-medium w-20 h-6 justify-center items-center px-12 text-gray-500 hover:underline underline-offset-4 decoration-[1px] hover:text-red-600 md:border-r-[2px] border-r-gray-300 duration-200 last:border-r-0'
-          >
-            Logout
-          </button>
+          <>
+            <Link href='/profile'>My Account</Link>
+            <button
+              onClick={() => signOut()}
+              className='flex hover:font-medium w-20 h-6 justify-center items-center px-12 text-gray-500 hover:underline underline-offset-4 decoration-[1px] hover:text-red-600'
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </header>
