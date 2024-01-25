@@ -32,6 +32,11 @@ export default {
       title: 'Price',
       type: 'number',
     },
+    {
+      name: 'isFeatured',
+      title: 'Featured',
+      type: 'boolean',
+    },
     // {
     //   name: 'price_id',
     //   title: 'Stripe Price ID',
