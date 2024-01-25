@@ -20,3 +20,9 @@ export interface fullProduct {
   quantity: number;
   // add quantity asap
 }
+
+export interface StateProps {
+  ecomm: {
+    productData: fullProduct[];
+  };
+}

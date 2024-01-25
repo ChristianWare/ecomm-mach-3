@@ -1,10 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import { signIn, signOut, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { RiShoppingCart2Fill } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { StateProps } from "@/app/interface";
+
 
 const links = [
   { name: "Home", href: "/" },
@@ -16,6 +18,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { productData } = useSelector((state: StateProps) => state.ecomm);
   const { data: session } = useSession();
 
   return (
@@ -74,6 +77,19 @@ export default function Navbar() {
             </button>
           </>
         )}
+        <Link
+          href={"/cart"}
+          className='bg-white w-16 h-[70px] rounded-md flex flex-col gap-1 text-[#33475b] justify-center items-center shadow-testShadow overflow-x-hidden group cursor-pointer relative'
+        >
+          <div className='flex justify-center items-center'>
+            <RiShoppingCart2Fill className='text-2xl -translate-x-12 group-hover:translate-x-3 transition-transform duration-200' />
+            <RiShoppingCart2Fill className='text-2xl -translate-x-3 group-hover:translate-x-12 transition-transform duration-200' />
+          </div>
+          <span className='text-xs font-semibold'>Buy Now</span>
+          <span className='absolute top-1 right-2 bg-red-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-semibold'>
+            {productData ? productData?.length : 0}
+          </span>
+        </Link>
       </div>
     </header>
   );

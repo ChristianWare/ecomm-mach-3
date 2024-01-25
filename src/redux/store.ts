@@ -48,7 +48,7 @@ const persistedReducer = persistReducer(persistConfig, ecommReducer);
 
 export const store = configureStore({
   reducer: {
-    orebi: persistedReducer,
+    ecomm: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

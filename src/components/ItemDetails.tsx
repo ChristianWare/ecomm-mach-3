@@ -44,7 +44,6 @@ const ItemDetails = ({ data }: any) => {
       </div>
 
       <div className='mb-6 flex items-center gap-2 text-gray-500'>
-        {/* <Truck className='w-6 h-6' /> */}
         <span className='text-sm'>2-4 Day Shipping</span>
       </div>
 
