@@ -1,4 +1,5 @@
 export interface simplifiedProduct {
+  image(image: any): unknown;
   _id: string;
   imageUrl: string;
   price: number;
@@ -6,6 +7,8 @@ export interface simplifiedProduct {
   categoryName: string;
   name: string;
   isFeatured: boolean;
+  quantity: number;
+  images?: any[]; // Add a simplified version of the images property
 }
 
 export interface fullProduct {
@@ -23,6 +26,6 @@ export interface fullProduct {
 
 export interface StateProps {
   ecomm: {
-    productData: fullProduct[];
+    productData: simplifiedProduct[];
   };
 }
