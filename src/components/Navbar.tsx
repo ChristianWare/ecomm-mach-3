@@ -10,6 +10,7 @@ const links = [
   { name: "Men", href: "/men" },
   { name: "Women", href: "/women" },
   { name: "Teens", href: "/teens" },
+  { name: "Shop", href: "/shop" },
 ];
 
 export default function Navbar() {

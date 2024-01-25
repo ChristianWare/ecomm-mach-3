@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/components/Container";
-import { resetCart } from "@/redux/orebiSlice";
+import { resetCart } from "@/redux/ecommSlice";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React, { useEffect } from "react";

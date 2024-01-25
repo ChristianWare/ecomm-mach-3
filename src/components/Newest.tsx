@@ -1,8 +1,4 @@
 import Link from "next/link";
-// import { simplifiedProduct } from "../interface";
-// import { client } from "../lib/sanity";
-// import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { client } from "@/lib/sanity";
 import { simplifiedProduct } from "@/app/interface";
 import ProductCard from "./ProductCard";

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import orebiReducer from "./orebiSlice";
+import ecommReducer from "./ecommSlice";
 import {
   persistStore,
   persistReducer,
@@ -44,7 +44,7 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, orebiReducer);
+const persistedReducer = persistReducer(persistConfig, ecommReducer);
 
 export const store = configureStore({
   reducer: {
