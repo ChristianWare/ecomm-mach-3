@@ -7,7 +7,6 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { StateProps } from "@/app/interface";
 
-
 const links = [
   { name: "Home", href: "/" },
   { name: "Men", href: "/men" },
@@ -20,6 +19,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { productData } = useSelector((state: StateProps) => state.ecomm);
   const { data: session } = useSession();
+
+  console.log(session);
 
   return (
     <header>
