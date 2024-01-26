@@ -1,5 +1,5 @@
 "use client";
-import { resetCart } from "@/redux/ecommSlice";
+import { resetCart } from "@/redux/orebiSlice";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React, { useEffect } from "react";

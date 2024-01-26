@@ -1,13 +1,10 @@
 "use client";
 
-import { addToCart } from "@/redux/ecommSlice";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
 
 const ItemDetails = ({ data }: any) => {
-  const dispatch = useDispatch();
-
-  console.log(data)
+  const [quantity, setQuantity] = useState(0);
 
   return (
     <div>
@@ -46,16 +43,25 @@ const ItemDetails = ({ data }: any) => {
       <div className='mb-6 flex items-center gap-2 text-gray-500'>
         <span className='text-sm'>2-4 Day Shipping</span>
       </div>
-
-      <button
-        onClick={() => {
-          dispatch(addToCart(data));
-          toast.success(`${data?.name.substring(0, 12)}... added to cart`);
-        }}
-        className='w-full py-4 bg-black text-white text-lg rounded-md'
-      >
-        Add to Cart
-      </button>
+      <div className='flex items-center justify-center gap-5'>
+        <button>-</button>
+        <input
+          type='text'
+          className='border outline-none border-gray-300 rounded px-2 py-1 text-center w-12'
+          value={quantity}
+          readOnly
+        />
+        <button disabled={quantity === 0}>+</button>
+        <button
+          onClick={() => {
+            // dispatch(addToCart(data));
+            toast.success(`${data?.name.substring(0, 12)}... added to cart`);
+          }}
+          className='w-full py-4 bg-black text-white text-lg rounded-md'
+        >
+          Add to Cart
+        </button>
+      </div>
 
       <p className='mt-12 text-base text-gray-500 tracking-wide'>
         {data.description}
