@@ -22,7 +22,7 @@ const useCartTotals = (): CartTotals => {
       let totalQuantity = 0;
 
       cartItems.forEach((item) => {
-        totalPrice += Number((item.price + item.quantity).toFixed(2));
+        totalPrice += Number((item.price * item.quantity).toFixed(2));
         totalQuantity += item.quantity;
       });
 
