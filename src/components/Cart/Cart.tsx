@@ -3,15 +3,21 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
 import { removeItemFromCart, toggleCart } from "@/redux/features/cartSlice";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 
 const Cart: FC = () => {
-  const {
-    cart: { showCart, cartItems },
-  } = useAppSelector((state) => state);
+  const { showCart, cartItems } = useAppSelector((state) => state.cart);
+
+  const [renderComponent, setRenderComponent] = useState(false);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setRenderComponent(true);
+  }, []);
+
+  if (!renderComponent) return <></>;
 
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
@@ -71,9 +77,7 @@ const Cart: FC = () => {
         {/* <span className={classNames.subtotalPrice}>$ {totalPrice}</span> */}
       </div>
       {/* <button onClick={checkoutHandler} className={classNames.checkoutBtn}> */}
-      <button className={classNames.checkoutBtn}>
-        Checkout
-      </button>
+      <button className={classNames.checkoutBtn}>Checkout</button>
     </div>
   );
 };

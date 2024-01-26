@@ -1,11 +1,15 @@
 "use client";
 
+import { useAppDispatch } from "@/hooks/storeHook";
+import { addItemToCart } from "@/redux/features/cartSlice";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const ItemDetails = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(data.price);
+
+  const dispatch = useAppDispatch();
 
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -16,11 +20,18 @@ const ItemDetails = ({ data }: any) => {
   };
 
   const handleIncrease = () => {
+    if (!data) return;
     if (quantity < data.quantity) {
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
       setPrice(Number((newQuantity * data.price).toFixed(2)));
     }
+  };
+
+  const handleAddToCart = () => {
+    if (!data) return;
+    dispatch(addItemToCart({ ...data, quantity }));
+    toast.success(`${data?.name.substring(0, 12)}... added to cart`);
   };
 
   return (
@@ -78,10 +89,7 @@ const ItemDetails = ({ data }: any) => {
           +
         </button>
         <button
-          onClick={() => {
-            // dispatch(addToCart(data));
-            toast.success(`${data?.name.substring(0, 12)}... added to cart`);
-          }}
+          onClick={handleAddToCart}
           className='w-full py-4 bg-black text-white text-lg rounded-md'
           disabled={quantity === 0}
         >
