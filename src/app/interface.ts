@@ -8,7 +8,6 @@ export interface simplifiedProduct {
   name: string;
   isFeatured: boolean;
   quantity: number;
-  images?: any[]; // Add a simplified version of the images property
 }
 
 export interface fullProduct {
@@ -21,10 +20,4 @@ export interface fullProduct {
   description: string;
   price_id: string;
   quantity: number;
-}
-
-export interface StateProps {
-  ecomm: {
-    productData: simplifiedProduct[];
-  };
 }
