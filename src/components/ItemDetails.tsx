@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/hooks/storeHook";
 import { addItemToCart } from "@/redux/features/cartSlice";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { toggleCart } from "@/redux/features/cartSlice";
 
 const ItemDetails = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
@@ -31,7 +32,7 @@ const ItemDetails = ({ data }: any) => {
   const handleAddToCart = () => {
     if (!data) return;
     dispatch(addItemToCart({ ...data, quantity }));
-    toast.success(`${data?.name.substring(0, 12)}... added to cart`);
+    dispatch(toggleCart());
   };
 
   return (
@@ -101,7 +102,7 @@ const ItemDetails = ({ data }: any) => {
         {data.description}
       </p>
       <Toaster
-        position='bottom-right'
+        position='top-center'
         toastOptions={{
           style: {
             background: "#000",
