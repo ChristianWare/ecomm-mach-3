@@ -6,6 +6,7 @@ import { removeItemFromCart, toggleCart } from "@/redux/features/cartSlice";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
+import { urlFor } from "@/lib/sanity";
 
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
@@ -47,7 +48,7 @@ const Cart: FC = () => {
               <Image
                 width={100}
                 height={100}
-                src={item.images[0].url}
+                src={urlFor(item.images[0]).url()}
                 alt={item.name}
                 className={cartItemClassNames.image}
               />
