@@ -4,7 +4,24 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const ItemDetails = ({ data }: any) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(data.price);
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      setPrice(Number((newQuantity * data.price).toFixed(2)));
+    }
+  };
+
+  const handleIncrease = () => {
+    if (quantity < data.quantity) {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      setPrice(Number((newQuantity * data.price).toFixed(2)));
+    }
+  };
 
   return (
     <div>
@@ -30,34 +47,43 @@ const ItemDetails = ({ data }: any) => {
       <div className='mb-4'>
         <div className='flex items-end gap-2'>
           <span className='text-xl font-bold text-gray-800 md:text-2xl'>
-            ${data.price}
+            ${price}
           </span>
-          <span className='mb-0.5 text-red-500 line-through'>
+          {/* <span className='mb-0.5 text-red-500 line-through'>
             ${data.price + 30}
-          </span>
+          </span> */}
         </div>
-
-        <span className='text-sm text-gray-500'>Incl. Vat plus shipping</span>
+        {data.quantity < 10 && (
+          <div className='texat-sm text-red-500'>
+            Only {data.quantity} left!
+          </div>
+        )}
+        <span className='texat-sm text-gray-500'>Incl. Vat plus shipping</span>
       </div>
 
       <div className='mb-6 flex items-center gap-2 text-gray-500'>
         <span className='text-sm'>2-4 Day Shipping</span>
       </div>
       <div className='flex items-center justify-center gap-5'>
-        <button>-</button>
+        <button onClick={handleDecrease} disabled={quantity === 1}>
+          -
+        </button>
         <input
           type='text'
           className='border outline-none border-gray-300 rounded px-2 py-1 text-center w-12'
           value={quantity}
           readOnly
         />
-        <button disabled={quantity === 0}>+</button>
+        <button onClick={handleIncrease} disabled={quantity === data.quantity}>
+          +
+        </button>
         <button
           onClick={() => {
             // dispatch(addToCart(data));
             toast.success(`${data?.name.substring(0, 12)}... added to cart`);
           }}
           className='w-full py-4 bg-black text-white text-lg rounded-md'
+          disabled={quantity === 0}
         >
           Add to Cart
         </button>

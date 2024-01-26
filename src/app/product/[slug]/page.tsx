@@ -12,7 +12,8 @@ async function getData(slug: string) {
           description,
           "slug": slug.current,
           "categoryName": category->name,
-          price_id
+          price_id,
+          quantity
       }`;
 
   const data = await client.fetch(query);
@@ -28,7 +29,6 @@ export default async function ProductPge({
   params: { slug: string };
 }) {
   const data: fullProduct = await getData(params.slug);
-
 
   return (
     <div className='bg-white'>

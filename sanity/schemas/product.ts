@@ -33,6 +33,11 @@ export default {
       type: 'number',
     },
     {
+      name: 'quantity',
+      type: 'number',
+      validation: (Rule: any) => Rule.required().integer().min(0),
+    },
+    {
       name: 'isFeatured',
       title: 'Featured',
       type: 'boolean',

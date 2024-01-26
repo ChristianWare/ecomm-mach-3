@@ -21,7 +21,6 @@ export interface fullProduct {
   description: string;
   price_id: string;
   quantity: number;
-  // add quantity asap
 }
 
 export interface StateProps {

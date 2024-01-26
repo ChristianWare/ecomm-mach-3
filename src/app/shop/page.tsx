@@ -3,6 +3,8 @@ import { simplifiedProduct } from "../interface";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 
+export const revalidate = 10;
+
 async function getData() {
   const query = `*[_type == "product"] | order(_createdAt desc) {
         _id,
