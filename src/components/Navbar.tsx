@@ -3,7 +3,10 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { RiShoppingCart2Fill } from "react-icons/ri";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
+import { toggleCart } from "@/redux/features/cartSlice";
+import useCartTotals from "@/hooks/useCartTotals";
 
 const links = [
   { name: "Home", href: "/" },
@@ -15,6 +18,10 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
+
+  const { totalQuantity } = useCartTotals();
+
+  const dispatch = useAppDispatch();
 
   return (
     <header>
@@ -28,26 +35,18 @@ export default function Navbar() {
         <nav className='hidden gap-12 lg:flex 2xl:ml-16'>
           {links.map((link, idx) => (
             <div key={idx}>
-              {pathname === link.href ? (
-                <Link
-                  className='text-lg font-semibold text-primary'
-                  href={link.href.toLowerCase()}
-                >
-                  {link.name}
-                </Link>
-              ) : (
-                <Link
-                  href={link.href.toLowerCase()}
-                  className='text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary'
-                >
-                  {link.name}
-                </Link>
-              )}
+              <Link
+                className='text-lg font-semibold text-primary'
+                href={link.href}
+              >
+                {link.name}
+              </Link>
             </div>
           ))}
+          <button onClick={() => dispatch(toggleCart())}>
+            Cart: {totalQuantity} <AiOutlineShoppingCart />
+          </button>
         </nav>
-
-        
       </div>
     </header>
   );
