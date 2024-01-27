@@ -20,5 +20,5 @@ export interface fullProduct {
   description: string;
   price_id: string;
   quantity: number;
-  sizes: string[];
+  sizes: boolean;
 }

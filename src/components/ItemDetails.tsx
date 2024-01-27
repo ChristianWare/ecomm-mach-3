@@ -3,8 +3,9 @@
 import { useAppDispatch } from "@/hooks/storeHook";
 import { addItemToCart } from "@/redux/features/cartSlice";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 import { toggleCart } from "@/redux/features/cartSlice";
+import Link from "next/link";
 
 const ItemDetails = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
@@ -35,6 +36,12 @@ const ItemDetails = ({ data }: any) => {
     dispatch(toggleCart());
   };
 
+  const sizes = [
+    { name: "Small", href: "/" },
+    { name: "Medium", href: "/men" },
+    { name: "Large", href: "/women" },
+  ];
+
   return (
     <div>
       <div className='mb-2 md:mb-3'>
@@ -55,6 +62,20 @@ const ItemDetails = ({ data }: any) => {
           56 Ratings
         </span>
       </div>
+
+      {data.sizes && (
+        <div className='mb-10'>
+          {sizes.map((size, index) => (
+            <Link
+              href='/'
+              key={index}
+              className='mr-5 p-4 bg-black text-white text-lg rounded-md'
+            >
+              {size.name}
+            </Link>
+          ))}
+        </div>
+      )}
 
       <div className='mb-4'>
         <div className='flex items-end gap-2'>
@@ -101,7 +122,7 @@ const ItemDetails = ({ data }: any) => {
       <p className='mt-12 text-base text-gray-500 tracking-wide'>
         {data.description}
       </p>
-      <Toaster
+      {/* <Toaster
         position='top-center'
         toastOptions={{
           style: {
@@ -109,7 +130,7 @@ const ItemDetails = ({ data }: any) => {
             color: "#fff",
           },
         }}
-      />
+      /> */}
     </div>
   );
 };

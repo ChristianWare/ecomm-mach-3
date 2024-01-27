@@ -44,9 +44,8 @@ export default {
     },
     {
       name: 'sizes',
-      title: 'Available Sizes',
-      type: 'array',
-      of: [{type: 'string'}],
+      title: 'Different Sizes?',
+      type: 'boolean',
     },
     // {
     //   name: 'price_id',
