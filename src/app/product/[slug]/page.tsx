@@ -13,7 +13,8 @@ async function getData(slug: string) {
           "slug": slug.current,
           "categoryName": category->name,
           price_id,
-          quantity
+          quantity,
+          sizes
       }`;
 
   const data = await client.fetch(query);

@@ -42,6 +42,12 @@ export default {
       title: 'Featured',
       type: 'boolean',
     },
+    {
+      name: 'sizes',
+      title: 'Available Sizes',
+      type: 'array',
+      of: [{type: 'string'}],
+    },
     // {
     //   name: 'price_id',
     //   title: 'Stripe Price ID',
