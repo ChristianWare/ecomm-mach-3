@@ -7,6 +7,8 @@ import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import { urlFor } from "@/lib/sanity";
+import { getStripe } from "@/lib/loadStripe";
+import axios from "axios";
 
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
@@ -18,6 +20,16 @@ const Cart: FC = () => {
 
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
+
+  const checkoutHandler = async () => {
+    const stripe = await getStripe();
+
+    const { data } = await axios.post("/api/stripe", cartItems);
+
+    if (!data) return;
+
+    stripe.redirectToChechout({ sessionId: data.id });
+  };
 
   useEffect(() => {
     setRenderComponent(true);
@@ -79,8 +91,9 @@ const Cart: FC = () => {
         <span className={classNames.subtotalText}>Subtotal</span>
         <span className={classNames.subtotalPrice}>$ {totalPrice}</span>
       </div>
-      {/* <button onClick={checkoutHandler} className={classNames.checkoutBtn}> */}
-      <button className={classNames.checkoutBtn}>Checkout</button>
+      <button onClick={checkoutHandler} className={classNames.checkoutBtn}>
+        Checkout
+      </button>
     </div>
   );
 };
