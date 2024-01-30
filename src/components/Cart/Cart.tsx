@@ -35,6 +35,8 @@ const Cart: FC = () => {
     setRenderComponent(true);
   }, []);
 
+  console.log(cartItems);
+
   if (!renderComponent) return <></>;
 
   return (
@@ -71,9 +73,10 @@ const Cart: FC = () => {
                 </p>
               </div>
               <div className={cartItemClassNames.quantityContainer}>
-                <span className={cartItemClassNames.quantity}>
-                  {item.quantity}
-                </span>
+                <div className={cartItemClassNames.quantity}>
+                  Quan: {item.quantity}
+                </div>
+                <div>Size: {item.size}</div>
                 <button
                   onClick={() => handleRemoveItem(item._id)}
                   className={cartItemClassNames.removeButton}

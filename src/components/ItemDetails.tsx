@@ -3,21 +3,34 @@
 import { useAppDispatch } from "@/hooks/storeHook";
 import { addItemToCart } from "@/redux/features/cartSlice";
 import { useState } from "react";
-// import { Toaster } from "react-hot-toast";
 import { toggleCart } from "@/redux/features/cartSlice";
 import Link from "next/link";
+import { getSizeName } from "@/lib/utils";
 
 const ItemDetails = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(data.price);
+  const [selectedSize, setSelectedSize] = useState(data.sizes[0]);
 
   const dispatch = useAppDispatch();
+
+  const calculatePrice = (basePrice: number, size: string) => {
+    switch (size) {
+      case "m":
+        return basePrice + 15;
+      case "l":
+        return basePrice + 20;
+      // Add more cases for other sizes as needed
+      default:
+        return basePrice;
+    }
+  };
 
   const handleDecrease = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      setPrice(Number((newQuantity * data.price).toFixed(2)));
+      setPrice(calculatePrice(data.price, selectedSize) * newQuantity);
     }
   };
 
@@ -26,21 +39,26 @@ const ItemDetails = ({ data }: any) => {
     if (quantity < data.quantity) {
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
-      setPrice(Number((newQuantity * data.price).toFixed(2)));
+      setPrice(calculatePrice(data.price, selectedSize) * newQuantity);
     }
+  };
+
+  const handleSizeChange = (size: string) => {
+    setSelectedSize(size);
+    setPrice(calculatePrice(data.price, size) * quantity);
   };
 
   const handleAddToCart = () => {
     if (!data) return;
-    dispatch(addItemToCart({ ...data, quantity }));
+    const itemToAdd = {
+      ...data,
+      quantity,
+      size: selectedSize,
+      price: calculatePrice(data.price, selectedSize),
+    };
+    dispatch(addItemToCart(itemToAdd));
     dispatch(toggleCart());
   };
-
-  const sizes = [
-    { name: "Small", href: "/" },
-    { name: "Medium", href: "/men" },
-    { name: "Large", href: "/women" },
-  ];
 
   return (
     <div>
@@ -64,17 +82,30 @@ const ItemDetails = ({ data }: any) => {
       </div>
 
       {data.sizes && (
-        <div className='mb-10'>
-          {sizes.map((size, index) => (
-            <Link
-              href='/'
-              key={index}
-              className='mr-5 p-4 bg-black text-white text-lg rounded-md'
-            >
-              {size.name}
-            </Link>
-          ))}
-        </div>
+        <>
+          <p>
+            Size: <strong>{getSizeName(selectedSize)}</strong>
+          </p>
+          <div className='flex items-center my-5 gap-5'>
+            {data.sizes.map((size: any) => (
+              <button
+                key={size}
+                onClick={() => handleSizeChange(size)}
+                className={`${
+                  selectedSize === size ? "bg-red-500" : "bg-black"
+                }`}
+              >
+                <span
+                  className={`p-2 text-white text-lg rounded-md ${
+                    selectedSize === size ? "bg-red-500" : "bg-black"
+                  }`}
+                >
+                  {getSizeName(size)}
+                </span>
+              </button>
+            ))}
+          </div>
+        </>
       )}
 
       <div className='mb-4'>
