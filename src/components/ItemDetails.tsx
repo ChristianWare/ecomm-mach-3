@@ -4,7 +4,6 @@ import { useAppDispatch } from "@/hooks/storeHook";
 import { addItemToCart } from "@/redux/features/cartSlice";
 import { useState } from "react";
 import { toggleCart } from "@/redux/features/cartSlice";
-import Link from "next/link";
 import { getSizeName } from "@/lib/utils";
 
 const ItemDetails = ({ data }: any) => {
@@ -59,6 +58,8 @@ const ItemDetails = ({ data }: any) => {
     dispatch(addItemToCart(itemToAdd));
     dispatch(toggleCart());
   };
+
+  console.log(data);
 
   return (
     <div>
@@ -153,15 +154,6 @@ const ItemDetails = ({ data }: any) => {
       <p className='mt-12 text-base text-gray-500 tracking-wide'>
         {data.description}
       </p>
-      {/* <Toaster
-        position='top-center'
-        toastOptions={{
-          style: {
-            background: "#000",
-            color: "#fff",
-          },
-        }}
-      /> */}
     </div>
   );
 };

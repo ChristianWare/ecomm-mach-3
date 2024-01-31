@@ -2,7 +2,12 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
 import useCartTotals from "@/hooks/useCartTotals";
-import { removeItemFromCart, toggleCart } from "@/redux/features/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeItemFromCart,
+  toggleCart,
+} from "@/redux/features/cartSlice";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
@@ -21,6 +26,10 @@ const Cart: FC = () => {
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
 
+  const handleIncreaseQuantity = (id: string) => dispatch(increaseQuantity(id));
+
+  const handleDecreaseQuantity = (id: string) => dispatch(decreaseQuantity(id));
+
   const checkoutHandler = async () => {
     const stripe = await getStripe();
 
@@ -35,7 +44,6 @@ const Cart: FC = () => {
     setRenderComponent(true);
   }, []);
 
-  console.log(cartItems);
 
   if (!renderComponent) return <></>;
 
@@ -73,6 +81,18 @@ const Cart: FC = () => {
                 </p>
               </div>
               <div className={cartItemClassNames.quantityContainer}>
+                <button
+                  onClick={() => handleDecreaseQuantity(item._id)}
+                  // className={cartItemClassNames.quantityControl}
+                >
+                  <strong>-</strong>
+                </button>
+                <button
+                  onClick={() => handleIncreaseQuantity(item._id)}
+                  // className={cartItemClassNames.quantityControl}
+                >
+                  <strong>+</strong>
+                </button>
                 <div className={cartItemClassNames.quantity}>
                   Quan: {item.quantity}
                 </div>
