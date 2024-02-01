@@ -33,26 +33,27 @@ export default {
       type: 'number',
     },
     {
-      name: 'quantity',
-      type: 'number',
-      validation: (Rule: any) => Rule.required().integer().min(0),
-    },
-    {
       name: 'isFeatured',
       title: 'Featured',
       type: 'boolean',
     },
+    {
+      name: 'isStock',
+      title: 'In Stock',
+      type: 'boolean',
+    },
+
     {
       name: 'sizes',
       title: 'Sizes',
       type: 'array',
       of: [{type: 'string'}],
     },
-    // {
-    //   name: 'price_id',
-    //   title: 'Stripe Price ID',
-    //   type: 'string',
-    // },
+    {
+      name: 'price_id',
+      title: 'Stripe Price ID',
+      type: 'string',
+    },
     {
       name: 'category',
       title: 'Product Category',

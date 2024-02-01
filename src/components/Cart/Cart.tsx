@@ -26,9 +26,9 @@ const Cart: FC = () => {
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
 
-  const handleIncreaseQuantity = (id: string) => dispatch(increaseQuantity(id));
+  // const handleIncreaseQuantity = (id: string) => dispatch(increaseQuantity(id));
 
-  const handleDecreaseQuantity = (id: string) => dispatch(decreaseQuantity(id));
+  // const handleDecreaseQuantity = (id: string) => dispatch(decreaseQuantity(id));
 
   const checkoutHandler = async () => {
     const stripe = await getStripe();
@@ -37,13 +37,12 @@ const Cart: FC = () => {
 
     if (!data) return;
 
-    stripe.redirectToChechout({ sessionId: data.id });
+    stripe.redirectToCheckout({ sessionId: data.id });
   };
 
   useEffect(() => {
     setRenderComponent(true);
   }, []);
-
 
   if (!renderComponent) return <></>;
 
@@ -81,7 +80,7 @@ const Cart: FC = () => {
                 </p>
               </div>
               <div className={cartItemClassNames.quantityContainer}>
-                <button
+                {/* <button
                   onClick={() => handleDecreaseQuantity(item._id)}
                   // className={cartItemClassNames.quantityControl}
                 >
@@ -92,7 +91,7 @@ const Cart: FC = () => {
                   // className={cartItemClassNames.quantityControl}
                 >
                   <strong>+</strong>
-                </button>
+                </button> */}
                 <div className={cartItemClassNames.quantity}>
                   Quan: {item.quantity}
                 </div>
@@ -116,6 +115,12 @@ const Cart: FC = () => {
       </div>
       <button onClick={checkoutHandler} className={classNames.checkoutBtn}>
         Checkout
+      </button>
+      <button
+        className={classNames.checkoutBtn}
+        onClick={() => dispatch(toggleCart())}
+      >
+        Continue Shopping
       </button>
     </div>
   );

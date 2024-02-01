@@ -21,4 +21,5 @@ export interface fullProduct {
   price_id: string;
   quantity: number;
   sizes: any;
+  inStock: boolean;
 }

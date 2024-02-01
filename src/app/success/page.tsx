@@ -1,16 +1,16 @@
 "use client";
-import { resetCart } from "@/redux/orebiSlice";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/hooks/storeHook";
+import { clearCart } from "@/redux/features/cartSlice";
 
-const SucessPage = ({ searchParams }: any) => {
-  const dispatch = useDispatch();
+import { useEffect } from "react";
+
+const SucessPage = () => {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    !searchParams?.session_id ? redirect("/") : dispatch(resetCart());
-  }, [dispatch, searchParams?.session_id]);
+    dispatch(clearCart());
+  }, [dispatch]);
 
   return (
     <div className='flex items-center justify-center py-20'>

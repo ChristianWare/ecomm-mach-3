@@ -9,7 +9,7 @@ import { getSizeName } from "@/lib/utils";
 const ItemDetails = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(data.price);
-  const [selectedSize, setSelectedSize] = useState(data.sizes[0]);
+  const [selectedSize, setSelectedSize] = useState(data.sizes?.[0] || "");
 
   const dispatch = useAppDispatch();
 
@@ -34,8 +34,8 @@ const ItemDetails = ({ data }: any) => {
   };
 
   const handleIncrease = () => {
-    if (!data) return;
-    if (quantity < data.quantity) {
+    if (quantity < 10) {
+      // Limit quantity to a maximum of 10
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
       setPrice(calculatePrice(data.price, selectedSize) * newQuantity);
@@ -59,7 +59,7 @@ const ItemDetails = ({ data }: any) => {
     dispatch(toggleCart());
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
@@ -118,11 +118,7 @@ const ItemDetails = ({ data }: any) => {
             ${data.price + 30}
           </span> */}
         </div>
-        {data.quantity < 10 && (
-          <div className='texat-sm text-red-500'>
-            Only {data.quantity} left!
-          </div>
-        )}
+
         <span className='texat-sm text-gray-500'>Incl. Vat plus shipping</span>
       </div>
 
@@ -150,6 +146,9 @@ const ItemDetails = ({ data }: any) => {
           Add to Cart
         </button>
       </div>
+      {quantity === 10 && (
+        <div className='mt-5'>max 10 items allowed per order</div>
+      )}
 
       <p className='mt-12 text-base text-gray-500 tracking-wide'>
         {data.description}

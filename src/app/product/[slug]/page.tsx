@@ -14,7 +14,8 @@ async function getData(slug: string) {
           "categoryName": category->name,
           price_id,
           quantity,
-          sizes
+          sizes,
+          price_id
       }`;
 
   const data = await client.fetch(query);
